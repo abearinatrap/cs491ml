@@ -1,3 +1,9 @@
+## Install instructions
+
+```
+git clone --recurse-submodules git@github.com:abearinatrap/cs491ml.git
+```
+
 ## Setup instructions
 
 ```
