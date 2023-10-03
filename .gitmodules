@@ -1,0 +1,3 @@
+[submodule "Phishing-Dataset"]
+	path = Phishing-Dataset
+	url = https://github.com/GregaVrbancic/Phishing-Dataset
