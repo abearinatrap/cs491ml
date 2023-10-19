@@ -3,38 +3,16 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import precision_score, recall_score, f1_score
+from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, ConfusionMatrixDisplay
 from torch.utils.data import DataLoader, TensorDataset
+import matplotlib.pyplot as plt
 
 DATA_STORED = "trimmed_data.npy"
 
 # Check if GPU is available and set the device accordingly
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-class NeuralNetwork(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size, num_hidden_layers):
-        super(NeuralNetwork, self).__init__()
-        self.input_size = input_size
-        self.hidden_size = hidden_size
-        self.output_size = output_size
-        self.num_hidden_layers = num_hidden_layers
-
-        self.input_layer = nn.Linear(input_size, hidden_size)
-
-        self.hidden_layers = nn.ModuleList()
-        for _ in range(num_hidden_layers):
-            self.hidden_layers.append(nn.Linear(hidden_size, hidden_size))
-
-        self.output_layer = nn.Linear(hidden_size, output_size)
-
-    def forward(self, x):
-        x = torch.relu(self.input_layer(x))
-
-        for layer in self.hidden_layers:
-            x = torch.relu(layer(x))
-
-        x = self.output_layer(x)
-        return x
+from src.NeuralNetwork import NeuralNetwork
 
 data_array = np.load(DATA_STORED)
 
@@ -64,11 +42,11 @@ test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
 # Hyperparameters
 input_size = 20
-hidden_size = 85
+hidden_size = 24
 output_size = 1
-num_hidden_layers = 15
-learning_rate = 0.005
-num_epochs = 11
+num_hidden_layers = 5
+learning_rate = 0.001
+num_epochs = 10
 
 # Instantiate the model, move it to the GPU
 model = NeuralNetwork(input_size, hidden_size, output_size, num_hidden_layers).to(device)
@@ -124,6 +102,10 @@ with torch.no_grad():
     precision = precision_score(all_labels, all_predictions)
     recall = recall_score(all_labels, all_predictions)
     f1 = f1_score(all_labels, all_predictions)
+    confusion_matrix = confusion_matrix(all_labels, all_predictions) 
+    cm_display = ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = [False, True]) 
+    cm_display.plot()
+    plt.show() 
 
     print("Precision:", precision)
     print("Recall:", recall)
@@ -137,7 +119,9 @@ if save_input == "y":
     model_path = input("Filename to save (****.pth) ")
     if model_path == "":
         model_path = '{}_{}_{}_{}.pth'.format(str(learning_rate),str(num_epochs),str(num_hidden_layers),str(hidden_size))
-    save_path = '{}/{}'.format("trained_weights", model_path)
+    else:
+        model_path = '{}_{}_{}_{}_{}.pth'.format(model_path,str(learning_rate),str(num_epochs),str(num_hidden_layers),str(hidden_size))
+    save_path = '{}/{}'.format("trained_weights/neural", model_path)
     torch.save(model.state_dict(), save_path)
     print("Model saved successfully at:", save_path)
 
