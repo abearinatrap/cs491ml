@@ -2,3 +2,4 @@ venv/*
 .DS_STORE
 *.npy
 trained_weights/neural/*
+src/__pycache__

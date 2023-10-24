@@ -1,0 +1,7 @@
+numpy
+pandas
+tldextract
+whois
+bs4
+Levenshtein
+dnspython
