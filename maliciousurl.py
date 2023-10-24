@@ -44,9 +44,9 @@ test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 input_size = 20
 hidden_size = 24
 output_size = 1
-num_hidden_layers = 5
+num_hidden_layers = 20
 learning_rate = 0.001
-num_epochs = 10
+num_epochs = 11
 
 # Instantiate the model, move it to the GPU
 model = NeuralNetwork(input_size, hidden_size, output_size, num_hidden_layers).to(device)
