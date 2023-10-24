@@ -5,3 +5,5 @@ torch
 tldextract
 whois
 bs4
+Levenshtein
+dnspython
