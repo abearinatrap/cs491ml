@@ -1,3 +1,6 @@
 [submodule "Phishing-Dataset"]
 	path = Phishing-Dataset
 	url = https://github.com/GregaVrbancic/Phishing-Dataset
+[submodule "csv"]
+	path = csv
+	url = https://github.com/abearinatrap/csv
