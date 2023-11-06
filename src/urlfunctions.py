@@ -7,7 +7,12 @@ from bs4 import BeautifulSoup
 import requests
 import whois
 import time
+import tldextract
 import re
+
+def get_domain(url):
+    o = urllib.parse.urlsplit(url)
+    return o.hostname, tldextract.extract(url).domain, o.path
 
 
 #################################################################################################################################
