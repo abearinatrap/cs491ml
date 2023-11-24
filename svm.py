@@ -29,7 +29,7 @@ f1 = f1_score(labels_test, predictions)
 print("F1 Score:", f1)
 
 # Specify the file path where you want to save the model
-model_filename = 'trained_weights/svm_classifier_model.pkl'
+model_filename = 'trained_weights/svm_classifier_model_lin.pkl'
 
 # Save the trained SVM model to a file
 joblib.dump(svm_classifier, model_filename)

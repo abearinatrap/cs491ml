@@ -7,3 +7,5 @@ whois
 bs4
 Levenshtein
 dnspython
+python-dotenv
+unidecode

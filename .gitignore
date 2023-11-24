@@ -3,3 +3,4 @@ venv/*
 *.npy
 trained_weights/neural/*
 src/__pycache__
+.env
